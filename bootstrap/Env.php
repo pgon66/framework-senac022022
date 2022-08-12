@@ -1,5 +1,7 @@
 <?php
 
+namespace Bootstrap;
+
 class Env {
 
     public static function execute() {
@@ -18,6 +20,5 @@ class Env {
             
             $_ENV[$nameOfVariable] = $valueOfVariable;
         }
- 
     }
 }
