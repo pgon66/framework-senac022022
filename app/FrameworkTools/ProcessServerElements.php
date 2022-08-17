@@ -7,6 +7,10 @@ class ProcessServerElements {
     private static $instance;
 
     private $documentRoot;
+    private $serverName;
+    private $httpHost;
+    private $uri;
+    private $variables;
 
     private function __construct() {
         // SINGLETON
@@ -34,5 +38,29 @@ class ProcessServerElements {
 
     public function getServerName() {
         return $this->serverName;
+    }
+
+    public function setHttpHost($httpHost) {
+        $this->httpHost = $httpHost;
+    }
+
+    public function getHttpHost() {
+        return $this->httpHost;
+    }
+
+    public function setUri($uri) {
+        $this->uri = $uri;
+    }
+
+    public function getUri() {
+        return $this->uri;
+    }
+
+    public function setVariables($variables) {
+        $this->variables = $variables;
+    }
+
+    public function getVariables() {
+        return $this->variables;
     }
 }
