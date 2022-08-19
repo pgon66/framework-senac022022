@@ -15,10 +15,13 @@ trait BreakStringInVars {
 
         $arrayWithVars = explode("&",$stringWithVars);
 
-        $varsOfUrl = array_map(function($element) {
-            return explode("=",$element);
-        },$arrayWithVars);
+        return array_map(function($element) {
+            $nameAndValue = explode("=",$element);
 
-        DD($varsOfUrl);
+            return [
+                "name" => $nameAndValue[0],
+                "value" => $nameAndValue[1]
+            ];
+        },$arrayWithVars);
     }
 }
