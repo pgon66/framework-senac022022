@@ -11,13 +11,13 @@ class Env {
         foreach ($arrayEnv as $value) {
             $keyAndValue = explode("=", $value);
 
-            if (!isset($keyAndValue[1])){
+            if (!isset($keyAndValue[1])) {
                 continue;
             }
 
             $nameOfVariable = $keyAndValue[0];
-            $valueOfVariable =  $keyAndValue[1];
-            
+            $valueOfVariable = $keyAndValue[1];
+
             $_ENV[$nameOfVariable] = $valueOfVariable;
         }
     }

@@ -1,15 +1,22 @@
 <?php
 
+
 $mainPosition = __DIR__;
+
+header("Acess-Control-Allow-Origin: *");
+header("Acess-Control-Allow-Headers: *");
 
 require_once("{$mainPosition}\helper\helper.php");
 require_once("{$mainPosition}\\vendor\autoload.php");
 
 use Bootstrap\Env;
-use App\FrameWorkTools\ProcessServerElements;
-use App\FrameWorkTools\Implementations\FactoryMethods\FactoryProcessServerElement;
+use App\FrameworkTools\ProcessServerElements;
+use App\FrameworkTools\Implementations\FactoryMethods\FactoryProcessServerElement;
+use App\FrameworkTools\Implementations\Route\RouteProcess;
 
 Env::execute();
 
 $factoryProcessServerElement = new FactoryProcessServerElement();
 $factoryProcessServerElement->operation();
+
+RouteProcess::execute();

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\FrameWorkTools\Implementations\FactoryMethods;
+namespace App\FrameworkTools\Implementations\FactoryMethods;
 
-use App\FrameWorkTools\Abstracts\FactoryMethods\AbstractFactoryMethods;
-use App\FrameWorkTools\ProcessServerElements;
+use App\FrameworkTools\Abstracts\FactoryMethods\AbstractFactoryMethods;
+use App\FrameworkTools\ProcessServerElements;
 
-use App\FrameWorkTools\Implementations\FactoryMethods\BreakStringInVars;
+use App\FrameworkTools\Implementations\FactoryMethods\BreakStringInVars;
 
 class FactoryProcessServerElement extends AbstractFactoryMethods {
 
@@ -24,10 +24,9 @@ class FactoryProcessServerElement extends AbstractFactoryMethods {
         $this->processServerElements->setUri($_SERVER['REQUEST_URI']);
 
         $variables = $this->breakStringInVars($_SERVER['REQUEST_URI']);
-    
+
         $this->processServerElements->setVariables($variables);
         $this->processServerElements->setVerb($_SERVER["REQUEST_METHOD"]);
-        dd($this->processServerElements);
+        $this->processServerElements->setRoute(explode("?",$_SERVER['REQUEST_URI'])[0]);
     }
-
 }

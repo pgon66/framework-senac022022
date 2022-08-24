@@ -1,6 +1,6 @@
 <?php
 
-namespace App\FrameWorkTools;
+namespace App\FrameworkTools;
 
 class ProcessServerElements {
 
@@ -12,13 +12,14 @@ class ProcessServerElements {
     private $uri;
     private $variables;
     private $verb;
+    private $route;
 
     private function __construct() {
-        // SINGLETON
+        // SINGLETON 
     }
 
     public static function start() {
-        if(!ProcessServerElements::$instance) {
+        if (!ProcessServerElements::$instance) {
             ProcessServerElements::$instance = new ProcessServerElements();
         }
 
@@ -60,7 +61,7 @@ class ProcessServerElements {
     public function setVariables($variables) {
         $this->variables = $variables;
     }
-
+    
     public function getVariables() {
         return $this->variables;
     }
@@ -70,6 +71,15 @@ class ProcessServerElements {
     }
 
     public function getVerb() {
-        return $this->verb;
+        return $this->verb;        
     }
+
+    public function setRoute($route) {
+        $this->route = $route;
+    }
+
+    public function getRoute() {
+        return $this->route;        
+    }
+
 }
