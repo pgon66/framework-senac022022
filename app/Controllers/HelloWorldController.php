@@ -21,7 +21,7 @@ class HelloWorldController extends AbstractControllers{
             "version" => 1.0,
             "value_of_variable_info" => $valueOfVariable,
             "mananger_developer" => "Pedro Gonçalves",
-            "web_site_company" => "https://jms.com"
+            "web_site_company" => "https://pgon66.com"
         ]);
 
     }
