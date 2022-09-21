@@ -1,5 +1,9 @@
+DROP DATABASE IF EXISTS frameworksenac;
 CREATE DATABASE frameworksenac;
+
 use frameworksenac;
+
+DROP TABLE IF EXISTS user;
 
 CREATE TABLE user(
     id_user INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
