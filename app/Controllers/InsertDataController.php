@@ -4,53 +4,68 @@ namespace App\Controllers;
 
 use App\FrameworkTools\Abstracts\Controllers\AbstractControllers;
 
-use App\FrameworkTools\Database\DatabaseConnection;
-
-
 class InsertDataController extends AbstractControllers{
 
+    private $params;
+    private $attrName;
+
     public function exec() {
-        $pdo = DatabaseConnection::start()->getPDO();
-        $params = $this->processServerElements->getInputJSONData();
-        $response = ['sucess' => true];
-        $attrName;
 
         try {
 
-            if (!$params['name']) {
-                $attrName = 'name';
-                throw new \Exception('the name has to be send in the request');
-            }
-    
-            if (!$params['last_name']) {
-                $attrName = 'lat_name';
-                throw new \Exception('the last_name has to be send in the request');
-            }
-    
-            if (!$params['age']) {
-                $attrName = 'age';
-                throw new \Exception('the age has to be send in the request');
-            }
-    
+            $this->params = $this->processServerElements->getInputJSONData();
+            $response = ['sucess' => true];
+
+            $this->verificationInputVar();
+
             $query = "INSERT INTO user (name, last_name, age) VALUES (:name,:last_name,:age)";
             
-            $statement = $pdo->prepare($query);
+            $statement = $this->pdo->prepare($query);
     
             $statement->execute([
-                ':name' => $params["name"],
-                ':last_name' => $params["lastName"],
-                ':age' => $params["age"]
+                ':name' => $this->params["name"],
+                ':last_name' => $this->params["last_name"],
+                ':age' => $this->params["age"]
             ]);
 
         } catch (\Exception $e) {
             $response = [
                 'success' => false, 
                 'message' => $e->getMessage(),
-                'missingAttribute' => $attrName
+                'missingAttribute' => $this->attrName
             ];
         }
 
         view([$response]);
+    }
+
+    private function verificationInputVar() {
+
+        if (!$this->params['name']) {
+            $this->attrName = 'name';
+            throw new \Exception('the name has to be send in the request');
+        }
+
+        if (!$this->params['last_name']) {
+            $this->attrName = 'last_name';
+            throw new \Exception('the last_name has to be send in the request');
+        }
+
+        if (!$this->params['age']) {
+            $this->attrName = 'age';
+            throw new \Exception('the age has to be send in the request');
+        }
+
+        if ($this->params['age'] < 0 ) {
+            $this->attrName = 'age';
+            throw new \Exception('the age has to be more than zero');
+        }
+
+        if ($this->params['age'] > 200 ) {
+            $this->attrName = 'age';
+            throw new \Exception('the age has to be less than two hundred');
+        }
+
     }
 
 }
