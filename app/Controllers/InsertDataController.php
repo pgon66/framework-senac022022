@@ -13,15 +13,16 @@ class InsertDataController extends AbstractControllers{
 
         try {
 
+            $response = ['success'=> true];
+
             $this->params = $this->processServerElements->getInputJSONData();
-            $response = ['sucess' => true];
-
-            $this->verificationInputVar();
-
-            $query = "INSERT INTO user (name, last_name, age) VALUES (:name,:last_name,:age)";
-            
-            $statement = $this->pdo->prepare($query);
     
+            $this->verificationInputVar();
+    
+            $query = "INSERT INTO user (name,last_name,age) VALUES (:name,:last_name,:age)";
+            
+            $statement = $this->pdo->prepare($query); 
+                
             $statement->execute([
                 ':name' => $this->params["name"],
                 ':last_name' => $this->params["last_name"],
@@ -30,13 +31,14 @@ class InsertDataController extends AbstractControllers{
 
         } catch (\Exception $e) {
             $response = [
-                'success' => false, 
+                'success' => false,
                 'message' => $e->getMessage(),
                 'missingAttribute' => $this->attrName
             ];
         }
 
-        view([$response]);
+        view($response);
+
     }
 
     private function verificationInputVar() {

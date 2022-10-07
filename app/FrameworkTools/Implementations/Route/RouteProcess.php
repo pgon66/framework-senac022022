@@ -2,37 +2,28 @@
 
 namespace App\FrameworkTools\Implementations\Route;
 
+use App\FrameworkTools\Implementations\Route\GetTrait;
+use App\FrameworkTools\Implementations\Route\PostTrait;
+
 use App\FrameworkTools\ProcessServerElements;
-use App\Controllers\HelloWorldController;
-use App\Controllers\InsertDataController;
 
 class RouteProcess {
 
+    use GetTrait;
+    use PostTrait;
+
+    private static $processServerElements;
+
     public static function execute() {
-        $processServerElements = ProcessServerElements::start();
+        self::$processServerElements = ProcessServerElements::start();
         $routeArray = [];
     
-        switch($processServerElements->getVerb()) {
+        switch(self::$processServerElements->getVerb()) {
             case 'GET':
-
-                switch ($processServerElements->getRoute()) {
-
-                    case '/hello-world':
-                        return (new HelloWorldController)->execute();
-                    break;
-                }
-
+                return self::get();
             case 'POST':
-            
-                switch ($processServerElements->getRoute()) {
-                    case '/insert-data':
-                        return (new InsertDataController)->exec();
-                    break;
-                }
-                
+                return self::post();
         }
-        
 
     }
-
 }
