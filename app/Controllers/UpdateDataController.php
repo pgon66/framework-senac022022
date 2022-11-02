@@ -20,7 +20,7 @@ class UpdateDataController extends AbstractControllers {
 
             if ((!$requestVariables) || (sizeof($requestVariables) === 0)) {
                 $missingAttribute = 'variableIsEmpty';
-                throw new \Exception("You need to insert variables in url");
+                throw new \Exception("You need to insert variables in url.");
             }
 
             foreach ($requestVariables as $requestVariable) {
@@ -31,21 +31,22 @@ class UpdateDataController extends AbstractControllers {
 
             if (!$userId) {
                 $missingAttribute = 'userIdIsNull';
-                throw new \Exception("You need to inform userId variable");
+                throw new \Exception("You need to inform userId variable.");
             }
 
-            $users = $this->pdo->query("SELECT * FROM user WHERE id_user = '{$userId}';")->fetchAll();
+            $users = $this->pdo->query("SELECT * FROM user WHERE id_user = '{$userId}';")
+                ->fetchAll();
 
             if (sizeof($users) === 0) {
                 $missingAttribute = 'thisUserNoExist';
-                throw new \Exception("There is not record of this user in db");
+                throw new \Exception("There is not record of this user in db.");
             }
 
             $params = $this->processServerElements->getInputJSONData();
 
             if((!$params) || sizeof($params) === 0) {
                 $missingAttribute = 'paramsNotExist';
-                throw new \Exception("You have to inform the params attr to update");
+                throw new \Exception("You have to inform the params attr to update.");
             }
 
             $updateStructureQuery = '';
@@ -80,7 +81,7 @@ class UpdateDataController extends AbstractControllers {
                     SET
                         {$newStringElementsSQL}
                     WHERE
-                        id_user = :id_user
+                        id_user = {$userId}
             ";
 
             $statement = $this->pdo->prepare($sql);
@@ -88,8 +89,7 @@ class UpdateDataController extends AbstractControllers {
             $statement->execute([
                 ":name" => $params["name"],
                 ":last_name" => $params["last_name"],
-                ":age" => $params["age"],
-                ">id_user" => $userId
+                ":age" => $params["age"]
             ]);
 
             dd($sql);
