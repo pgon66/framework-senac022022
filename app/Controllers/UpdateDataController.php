@@ -69,12 +69,8 @@ class UpdateDataController extends AbstractControllers {
                     $updateStructureQuery .= "age = :age,";
                 }
             }
-
-            $updateStringInArray = str_split($updateStructureQuery);
-
-            array_pop($updateStringInArray);
-
-            $newStringElementsSQL = implode($updateStringInArray);
+            
+            $newStringElementsSQL = substr($updateStructureQuery,0,-1);
 
             $sql = "UPDATE
                         user
