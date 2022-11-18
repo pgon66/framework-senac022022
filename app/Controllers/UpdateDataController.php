@@ -51,6 +51,8 @@ class UpdateDataController extends AbstractControllers {
 
             $updateStructureQuery = '';
 
+            $toStatement = [];
+
             foreach ($params as $key => $value) {
                 if (!in_array($key,['name', 'last_name', 'age'])) {
                     $missingAttribute = 'keyNotAcceptable';
@@ -59,14 +61,17 @@ class UpdateDataController extends AbstractControllers {
 
                 if ($key === 'name') {
                     $updateStructureQuery .= "name = :name,";
+                    $toStatement[':name'] = $value;
                 }
 
                 if ($key === 'last_name') {
                     $updateStructureQuery .= "last_name = :last_name,";
+                    $toStatement[':last_name'] = $value;
                 }
 
                 if ($key === 'age') {
                     $updateStructureQuery .= "age = :age,";
+                    $toStatement[':age'] = $value;
                 }
             }
             
@@ -82,13 +87,7 @@ class UpdateDataController extends AbstractControllers {
 
             $statement = $this->pdo->prepare($sql);
 
-            $statement->execute([
-                ":name" => $params["name"],
-                ":last_name" => $params["last_name"],
-                ":age" => $params["age"]
-            ]);
-
-            dd($sql);
+            $statement->execute($toStatement);
             
         } catch (\Exception $e) {
             $response = [
