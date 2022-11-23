@@ -5,6 +5,7 @@ namespace App\FrameworkTools\Implementations\Route;
 use App\FrameworkTools\Implementations\Route\GetTrait;
 use App\FrameworkTools\Implementations\Route\PostTrait;
 use App\FrameworkTools\Implementations\Route\PutTrait;
+use App\FrameworkTools\Implementations\Route\DeleteTrait;
 
 use App\FrameworkTools\ProcessServerElements;
 
@@ -13,6 +14,7 @@ class RouteProcess {
     use GetTrait;
     use PostTrait;
     use PutTrait;
+    use DeleteTrait;
 
     private static $processServerElements;
 
@@ -27,6 +29,8 @@ class RouteProcess {
                 return self::post();
             case 'PUT':
                 return self::put();
+            case 'DELETE':
+                return self::delete();
         }
 
     }
